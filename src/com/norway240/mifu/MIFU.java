@@ -5,8 +5,8 @@ import javax.swing.JOptionPane;
 public class MIFU {
 	
 	public static void main(String[] args) {
-		JOptionPane.showMessageDialog(null, "This is a test", "MIFU", 1);
-		String DLDIR = JOptionPane.showInputDialog(null, "Enter the dir to download to", "MIFU", 1);
+		JOptionPane.showMessageDialog(null, "Welcome to the Mod Installer From URL v2!\nThis downloads the mods used in the BlocBin \nautomatically into your MultiMC Instance", "MIFU", 1);
+		String DLDIR = JOptionPane.showInputDialog(null, "Enter the location of your\nMultiMC Instance", "MIFU", 1);
 		System.out.println(DLDIR);
 		
 		//Download dlObject = new Download();
