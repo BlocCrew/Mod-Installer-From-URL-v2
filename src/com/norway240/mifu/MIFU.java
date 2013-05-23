@@ -9,9 +9,11 @@ public class MIFU {
 		String DLDIR = JOptionPane.showInputDialog(null, "Enter the dir to download to", "MIFU", 1);
 		System.out.println(DLDIR);
 		
-		Download dlObject = new Download();
-		dlObject.downloadfile("http://dl.bloccrew.com/test.zip", DLDIR, "/test.zip");
-
+		//Download dlObject = new Download();
+		//dlObject.downloadfile("http://dl.bloccrew.com/test.zip", DLDIR, "/test.zip");
+		
+		ReadFile rfObj = new ReadFile();
+		rfObj.readfile(DLDIR);
 	}
 
 }
