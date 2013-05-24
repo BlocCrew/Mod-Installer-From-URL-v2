@@ -9,7 +9,7 @@ public class ReadFile {
 		URL url = getClass().getResource("modlist.txt");
 		File modlist = new File(url.getPath());
 	    Download dlObject = new Download();
-		
+	    
 		try {
 			  BufferedReader cfgFile = new BufferedReader(new FileReader(modlist));
 			  String line = null;
@@ -30,7 +30,7 @@ public class ReadFile {
 
 			  cfgFile.close();
 			} catch (IOException e) {
-			  System.out.println("Unexpected File IO Error");
+				System.out.println("Unexpected File IO Error");
 			}
 		
 	}
