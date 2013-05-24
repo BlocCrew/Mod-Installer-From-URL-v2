@@ -1,6 +1,9 @@
 package com.norway240.mifu;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.net.URL;
 
 public class ReadFile {
@@ -14,7 +17,6 @@ public class ReadFile {
 			  BufferedReader cfgFile = new BufferedReader(new FileReader(modlist));
 			  String line = null;
 
-			  // Read the file line by line
 			  while ((line = cfgFile.readLine()) != null) {
 				  line.trim();
 			      String [] modlst = line.split(","); 
@@ -22,8 +24,8 @@ public class ReadFile {
 			      String link = modlst[0];
 			      String save = modlst[1];  
 			      
-			      System.out.println("link: "+link);
-			      System.out.println("file: "+save);
+			      //System.out.println("link: "+link);
+			      //System.out.println("file: "+save);
 			      
 			      dlObject.downloadfile(link, dir, save);
 			  }
