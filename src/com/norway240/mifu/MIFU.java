@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.net.URL;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -30,18 +29,10 @@ public class MIFU {
 	    frame.setVisible(true);
 	    
 	    Thread.sleep(1000);
-		
-	    text.setText("Downloading...");
-	    
-	    Thread.sleep(1000);
-		
-		//ReadFile rfObj = new ReadFile();
-		//rfObj.readfile(DLDIR);
 	    
 	    URL url = MIFU.class.getResource("modlist.txt");
 		File modlist = new File(url.getPath());
 	    Download dlObject = new Download();
-	    
 		FileReader fr = new FileReader(modlist);
 		LineNumberReader lnr = new LineNumberReader(fr);
 		int totalmods = 0;
@@ -69,11 +60,11 @@ public class MIFU {
 				  System.out.println("Downloaded: " + currmod + "/" + totalmods);
 				  text.setText("Downloaded: " + currmod + "/" + totalmods);
 			  }
-
 			  cfgFile.close();
 			} catch (IOException e) {
 				System.out.println("Unexpected File IO Error");
 			}
+		
 		text.setText("Done!");
 		JOptionPane.showMessageDialog(null, "Finished downloading mods!\nYou can play now. \nThe Official BlocBin Server\nIP is mod.bloccrew.com", "MIFU", 1);
 	}
