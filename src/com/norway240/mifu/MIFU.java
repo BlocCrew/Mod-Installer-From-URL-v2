@@ -16,9 +16,8 @@ public class MIFU {
 		String currdir = System.getProperty("user.dir");
 		
 		JOptionPane.showMessageDialog(null, "Welcome to the Mod Installer From URL v2!\nThis downloads the mods used in the BlocBin \nautomatically into your MultiMC Instance", "MIFU", 1);
-		String DLDIR = JOptionPane.showInputDialog(null, "Enter the location of your\nMultiMC Instance", "MIFU", 1);
-		System.out.println(DLDIR);
-		JOptionPane.showMessageDialog(null, "You selected:\n"+DLDIR, "MIFU", 1);
+		String DLDIR = JOptionPane.showInputDialog(null, "Enter the location of your\nMultiMC Instance\nLeave blank for the current dir", "MIFU", 1);
+		if(DLDIR == null){DLDIR = currdir;}
 		
 		JFrame gui = new JFrame();
 		JLabel text = new JLabel("Preparing to download...");
