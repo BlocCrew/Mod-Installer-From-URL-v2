@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
-import java.net.URL;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -14,25 +13,31 @@ import javax.swing.JOptionPane;
 public class MIFU {
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
+		String currdir = System.getProperty("user.dir");
 		
 		JOptionPane.showMessageDialog(null, "Welcome to the Mod Installer From URL v2!\nThis downloads the mods used in the BlocBin \nautomatically into your MultiMC Instance", "MIFU", 1);
 		String DLDIR = JOptionPane.showInputDialog(null, "Enter the location of your\nMultiMC Instance", "MIFU", 1);
 		System.out.println(DLDIR);
 		JOptionPane.showMessageDialog(null, "You selected:\n"+DLDIR, "MIFU", 1);
 		
-		JFrame frame = new JFrame();
-		JLabel text = new JLabel("Preparing to download..");
-		frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-	    frame.getContentPane().setLayout (new BorderLayout ());
-	    frame.getContentPane().add (text, BorderLayout.CENTER);
-	    frame.pack ();
-	    frame.setVisible(true);
+		JFrame gui = new JFrame();
+		JLabel text = new JLabel("Preparing to download...");
+		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		gui.getContentPane().setLayout(new BorderLayout ());
+		gui.getContentPane().add(text, BorderLayout.CENTER);
+		gui.pack();
+		gui.setVisible(true);
 	    
 	    Thread.sleep(1000);
-	    
-	    URL url = MIFU.class.getResource("modlist.txt");
-		File modlist = new File(url.getPath());
 	    Download dlObject = new Download();
+	    boolean modlistcheck = new File(currdir + "modlist.txt").isFile();
+	    if(!modlistcheck){
+	    	text.setText("Downloading modlist.txt");
+	    	dlObject.downloadfile("http://dl.bloccrew.com/modlist.txt", currdir, "modlist.txt");	
+	    	Thread.sleep(1000);
+	    }
+	    
+	    File modlist = new File(currdir + "modlist.txt");
 		FileReader fr = new FileReader(modlist);
 		LineNumberReader lnr = new LineNumberReader(fr);
 		int totalmods = 0;
@@ -43,29 +48,32 @@ public class MIFU {
         System.out.println("Total number of mods to download: " + totalmods);
 	    
 		try {
-			  BufferedReader cfgFile = new BufferedReader(new FileReader(modlist));
-			  String line = null;
-			  int currmod = 0;
+			text.setText("Reading modlist");
+			BufferedReader cfgFile = new BufferedReader(new FileReader(modlist));
+			String line = null;
+			int currmod = 0;
 
-			  while ((line = cfgFile.readLine()) != null) {
-				  line.trim();
-			      String [] modlst = line.split(","); 
+			while ((line = cfgFile.readLine()) != null) {
+				line.trim();
+			    String [] modlst = line.split(","); 
 			      
-			      String link = modlst[0];
-			      String save = modlst[1];
+			    String link = modlst[0];
+			    String save = modlst[1];
 			      
-			      dlObject.downloadfile(link, DLDIR, save);
-			      currmod++;
+			    dlObject.downloadfile(link, DLDIR, save);
+			    currmod++;
 			      
-				  System.out.println("Downloaded: " + currmod + "/" + totalmods);
-				  text.setText("Downloaded: " + currmod + "/" + totalmods);
-			  }
-			  cfgFile.close();
+				System.out.println("Downloaded: " + currmod + "/" + totalmods);
+				text.setText("Downloaded: " + currmod + "/" + totalmods);
+			}
+				cfgFile.close();
 			} catch (IOException e) {
 				System.out.println("Unexpected File IO Error");
 			}
 		
 		text.setText("Done!");
+		Thread.sleep(1000);
+		gui.dispose();
 		JOptionPane.showMessageDialog(null, "Finished downloading mods!\nYou can play now. \nThe Official BlocBin Server\nIP is mod.bloccrew.com", "MIFU", 1);
 	}
 
