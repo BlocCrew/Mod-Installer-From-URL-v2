@@ -30,9 +30,16 @@ public class MIFU {
 	    Thread.sleep(1000);
 	    Download dlObject = new Download();
 	    boolean modlistcheck = new File(currdir + "modlist.txt").isFile();
+	    boolean configcheck = new File(DLDIR + "/minecraft/config/config.zip").isFile();
 	    if(!modlistcheck){
 	    	text.setText("Downloading modlist.txt");
-	    	dlObject.downloadfile("http://dl.bloccrew.com/modlist.txt", currdir, "modlist.txt");	
+	    	dlObject.downloadfile("http://dl.bloccrew.com/modlist.txt", currdir, "modlist.txt");
+	    	Thread.sleep(1000);
+	    }
+	    if(configcheck) {
+	    	text.setText("Extracting config.zip");
+	    	Extract extractObj = new Extract();
+	    	extractObj.getZipFiles(DLDIR + "/minecraft/config/config.zip", DLDIR + "/minecraft/config/");
 	    	Thread.sleep(1000);
 	    }
 	    
