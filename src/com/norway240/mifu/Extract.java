@@ -1,7 +1,10 @@
 package com.norway240.mifu;
 
-import java.io.*;
-import java.util.zip.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class  Extract {
     public void getZipFiles(String filename, String destinationname) {
@@ -9,40 +12,30 @@ public class  Extract {
             byte[] buf = new byte[1024];
             ZipInputStream zipinputstream = null;
             ZipEntry zipentry;
-            zipinputstream = new ZipInputStream(
-                new FileInputStream(filename));
-
+            zipinputstream = new ZipInputStream(new FileInputStream(filename));
             zipentry = zipinputstream.getNextEntry();
             while (zipentry != null) { 
-                //for each entry to be extracted
                 String entryName = zipentry.getName();
                 System.out.println("entryname "+entryName);
                 int n;
                 FileOutputStream fileoutputstream;
                 File newFile = new File(entryName);
                 String directory = newFile.getParent();
-                
                 if(directory == null) {
                     if(newFile.isDirectory())
                         break;
                 }
-                
-                fileoutputstream = new FileOutputStream(
-                   destinationname+entryName);             
-
+                fileoutputstream = new FileOutputStream(destinationname+entryName);             
                 while ((n = zipinputstream.read(buf, 0, 1024)) > -1)
-                    fileoutputstream.write(buf, 0, n);
+                	fileoutputstream.write(buf, 0, n);
+                	fileoutputstream.close(); 
+                	zipinputstream.closeEntry();
+                	zipentry = zipinputstream.getNextEntry();
+            	}
 
-                fileoutputstream.close(); 
-                zipinputstream.closeEntry();
-                zipentry = zipinputstream.getNextEntry();
-
-            }//while
-
-            zipinputstream.close();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        	zipinputstream.close();
+        } catch (Exception e) {
+        	e.printStackTrace();
         }
     }
 }

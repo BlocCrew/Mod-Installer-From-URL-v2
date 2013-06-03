@@ -15,7 +15,7 @@ public class MIFU {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		String currdir = System.getProperty("user.dir");
 		
-		JOptionPane.showMessageDialog(null, "Welcome to the Mod Installer From URL v2!\nThis downloads the mods used in the BlocBin \nautomatically into your MultiMC Instance", "MIFU", 1);
+		JOptionPane.showMessageDialog(null, "Welcome to the Mod Installer From URL v2!\nThis downloads the mods \nautomatically into your MultiMC Instance", "MIFU", 1);
 		String DLDIR = JOptionPane.showInputDialog(null, "Enter the location of your\nMultiMC Instance\nLeave blank for the current dir", "MIFU", 1);
 		if(DLDIR == null){DLDIR = currdir;}
 		
@@ -30,16 +30,9 @@ public class MIFU {
 	    Thread.sleep(1000);
 	    Download dlObject = new Download();
 	    boolean modlistcheck = new File(currdir + "modlist.txt").isFile();
-	    boolean configcheck = new File(DLDIR + "/minecraft/config/config.zip").isFile();
 	    if(!modlistcheck){
 	    	text.setText("Downloading modlist.txt");
 	    	dlObject.downloadfile("http://dl.bloccrew.com/modlist.txt", currdir, "modlist.txt");
-	    	Thread.sleep(1000);
-	    }
-	    if(configcheck) {
-	    	text.setText("Extracting config.zip");
-	    	Extract extractObj = new Extract();
-	    	extractObj.getZipFiles(DLDIR + "/minecraft/config/config.zip", DLDIR + "/minecraft/config/");
 	    	Thread.sleep(1000);
 	    }
 	    
@@ -76,11 +69,22 @@ public class MIFU {
 			} catch (IOException e) {
 				System.out.println("Unexpected File IO Error");
 			}
+
+		boolean configcheck = new File(DLDIR + "/config.zip").isFile();
+	    if(configcheck) {
+	    	text.setText("Extracting config.zip");
+	    	File configfolder = new File(DLDIR + "/minecraft/config");
+	    	configfolder.mkdir();
+	    	Extract extractObj = new Extract();
+	    	extractObj.getZipFiles(DLDIR + "/config.zip", DLDIR + "/minecraft/config/");
+	    	Thread.sleep(1000);
+	    }
 		
 		text.setText("Done!");
 		Thread.sleep(1000);
 		gui.dispose();
-		JOptionPane.showMessageDialog(null, "Finished downloading mods!\nYou can play now. \nThe Official BlocBin Server\nIP is mod.bloccrew.com", "MIFU", 1);
+		if(!modlistcheck){JOptionPane.showMessageDialog(null, "Finished downloading mods!\nYou can play now. \nThe Official BlocBin Server\nIP is mod.bloccrew.com", "MIFU", 1);
+		}else{JOptionPane.showMessageDialog(null, "Your download is now complete!", "MIFU", 1);}
 	}
 
 }
