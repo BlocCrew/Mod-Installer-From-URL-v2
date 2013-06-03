@@ -7,4 +7,4 @@ This new mod installer will download the mods listed in the modlist.txt in the s
 If there is no modlist.txt then the program will download the one for the BlocBin modpack
 
 You can download the Compiled/Finished version here:
-http://dl.bloccrew.com/MIFUv2.jar
+http://dl.bloccrew.com/MIFU.jar
