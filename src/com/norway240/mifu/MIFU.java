@@ -16,7 +16,7 @@ import javax.swing.ScrollPaneConstants;
 public class MIFU {
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
-		String currdir = System.getProperty("user.dir");		
+		String currdir = System.getProperty("user.dir");	
 		JOptionPane.showMessageDialog(null, "Welcome to the Mod Installer From URL v2!\nThis downloads the mods \nautomatically into your MultiMC Instance", "MIFU", 1);
 		String DLDIR = JOptionPane.showInputDialog(null, "Enter the location of your\nMultiMC Instance\nLeave blank for the current dir", "MIFU", 1);
 		if(DLDIR == null){DLDIR = currdir;}
@@ -40,7 +40,7 @@ public class MIFU {
 		logwindow.setVisible(true);
 		gui.setVisible(true);
 	    
-	   Thread.sleep(1000);
+		Thread.sleep(1000);
 	    Download dlObject = new Download();
 	    boolean modlistcheck = new File(currdir + "modlist.txt").isFile();
 	    if(!modlistcheck){
@@ -58,12 +58,12 @@ public class MIFU {
          	totalmods++;
         }
         lnr.close();
+        text.setText("Reading modlist");
+		log.append("Reading modlist\n");
         System.out.println("Total number of mods to download: " + totalmods);
 	    log.append("Mods to download: " + totalmods + "\n");
         
 		try {
-			text.setText("Reading modlist");
-			log.append("Reading modlist\n");
 			BufferedReader cfgFile = new BufferedReader(new FileReader(modlist));
 			String line = null;
 			int currmod = 0;
@@ -72,12 +72,14 @@ public class MIFU {
 			    String [] modlst = line.split(","); 
 			    String link = modlst[0];
 			    String save = modlst[1];
+			    log.append("Downloading: " + save + "\n");
+			    log.setCaretPosition(log.getDocument().getLength());
 			    dlObject.downloadfile(link, DLDIR, save);
 			    currmod++;
 				System.out.println("Downloaded: " + currmod + "/" + totalmods);
 				text.setText("Downloaded: " + currmod + "/" + totalmods);
-				log.append("Downloaded: "+ save + "\n");
-				log.append("Downloaded: "+ currmod + "/" + totalmods +"\n");
+				log.append("Downloaded: ["+currmod+"/"+totalmods+"] " + save + "\n");
+				log.setCaretPosition(log.getDocument().getLength());
 			}
 				cfgFile.close();
 			} catch (IOException e) {
@@ -98,6 +100,7 @@ public class MIFU {
 		
 		text.setText("Done!");
 		log.append("Done!\n");
+		log.setCaretPosition(log.getDocument().getLength());
 		Thread.sleep(1000);
 		gui.dispose();
 		logwindow.dispose();
