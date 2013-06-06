@@ -8,9 +8,9 @@ import java.net.URL;
 
 public class Download {
 	public void downloadfile(String DLURL, String DLDIR, String DLFILE) {
-		System.out.println("URL: "+DLURL);
-		System.out.println("DIR: "+DLDIR);
-		System.out.println("FILE: "+DLFILE);
+		System.out.println("URL: "+ DLURL);
+		System.out.println("DIR: "+ DLDIR);
+		System.out.println("FILE: "+ DLFILE);
 		
 		try {
 	        long startTime = System.currentTimeMillis();

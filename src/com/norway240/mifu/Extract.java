@@ -7,7 +7,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class  Extract {
-    public void getZipFiles(String filename, String destinationname) {
+    public void ExtractZipFile(String filename, String destinationname) {
         try {
             byte[] buf = new byte[1024];
             ZipInputStream zipinputstream = null;
