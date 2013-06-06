@@ -16,7 +16,7 @@ import javax.swing.ScrollPaneConstants;
 public class MIFU {
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
-		String currdir = System.getProperty("user.dir");	
+		String currdir = System.getProperty("user.dir");
 		JOptionPane.showMessageDialog(null, "Welcome to the Mod Installer From URL v2!\nThis downloads the mods \nautomatically into your MultiMC Instance", "MIFU", 1);
 		String DLDIR = JOptionPane.showInputDialog(null, "Enter the location of your\nMultiMC Instance\nLeave blank for the current dir", "MIFU", 1);
 		if(DLDIR == null){DLDIR = currdir;}
@@ -26,18 +26,19 @@ public class MIFU {
 		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gui.getContentPane().setLayout(new BorderLayout ());
 		gui.getContentPane().add(text, BorderLayout.CENTER);
-		gui.pack();
+		//gui.pack();
 		
-		JFrame logwindow = new JFrame("MIFU LOG");
+		//JFrame logwindow = new JFrame("MIFU LOG");
 		JTextArea log = new JTextArea(20,30);
-		logwindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//logwindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		log.setEditable(false);
 		JScrollPane scroll = new JScrollPane(log);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		logwindow.add(scroll);
-		logwindow.pack();
-		
-		logwindow.setVisible(true);
+		//logwindow.add(scroll);
+		//logwindow.pack();
+		gui.getContentPane().add(scroll, BorderLayout.PAGE_END);		
+		//logwindow.setVisible(true);
+		gui.pack();
 		gui.setVisible(true);
 	    
 		Thread.sleep(1000);
@@ -103,7 +104,7 @@ public class MIFU {
 		log.setCaretPosition(log.getDocument().getLength());
 		Thread.sleep(1000);
 		gui.dispose();
-		logwindow.dispose();
+		//logwindow.dispose();
 		if(!modlistcheck){JOptionPane.showMessageDialog(null, "Finished downloading mods!\nYou can play now. \nThe Official BlocBin Server\nIP is mod.bloccrew.com", "MIFU", 1);
 		}else{JOptionPane.showMessageDialog(null, "Your download is now complete!", "MIFU", 1);}
 	}
